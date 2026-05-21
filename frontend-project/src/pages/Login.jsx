@@ -10,7 +10,7 @@ export default function Login(){
   const handleSubmit = async (e) =>{
     e.preventDefault()
     try{
-      const res = await api.get('/admin/login', { data: { name, password } })
+      const res = await api.post('/admin/login', { name, password })
       if(res.data) navigate('/dashboard')
     }catch(err){
       alert(err.response?.data?.error || 'Login failed')
