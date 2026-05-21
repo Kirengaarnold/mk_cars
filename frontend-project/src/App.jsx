@@ -15,7 +15,7 @@ function App() {
         <Navbar />
         <main className="max-w-6xl mx-auto p-4 mt-6">
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/create-user" element={<CreateUser />} />
