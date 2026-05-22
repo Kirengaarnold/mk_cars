@@ -24,7 +24,6 @@ export default function Navbar({ auth, onLogout }){
             {auth && (
               <div className="flex gap-6">
                 <Link to="/dashboard" className="text-gray-600 text-sm hover:text-gray-900 transition">Dashboard</Link>
-                <Link to="/employees" className="text-gray-600 text-sm hover:text-gray-900 transition">Employees</Link>
                 <Link to="/create-employee" className="text-gray-600 text-sm hover:text-gray-900 transition">Add Employee</Link>
                 <Link to="/create-user" className="text-gray-600 text-sm hover:text-gray-900 transition">Create User</Link>
                 <Link to="/create-post" className="text-gray-600 text-sm hover:text-gray-900 transition">Create Post</Link>

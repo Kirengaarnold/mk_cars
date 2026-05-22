@@ -1,16 +1,35 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../api'
 
 export default function CreateUser(){
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [employeeId, setEmployeeId] = useState('')
+  const [employees, setEmployees] = useState([])
+
+  useEffect(() => {
+    async function fetchEmployees() {
+      try {
+        const res = await api.get('/employee')
+        setEmployees(res.data || [])
+      } catch (err) {
+        console.error('Failed to load employees', err)
+      }
+    }
+    fetchEmployees()
+  }, [])
 
   const handle = async (e) =>{
     e.preventDefault()
+    if (!employeeId) {
+      return alert('Please select an employee')
+    }
     try{
-      const res = await api.post('/user/register', { username, password })
+      const res = await api.post('/user/register', { username, password, employee_id: employeeId })
       alert('User created: ' + res.data.user_id)
-      setUsername(''); setPassword('')
+      setUsername('')
+      setPassword('')
+      setEmployeeId('')
     }catch(err){
       alert(err.response?.data?.error || err.response?.data?.message || 'Error')
     }
@@ -21,6 +40,17 @@ export default function CreateUser(){
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Create New User</h2>
         <form onSubmit={handle} className="space-y-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Employee</label>
+            <select value={employeeId} onChange={e=>setEmployeeId(e.target.value)} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <option value="">Select an employee</option>
+              {employees.map(emp => (
+                <option key={emp.employee_id} value={emp.employee_id}>
+                  {emp.firstname} {emp.lastname} - {emp.position || 'No position'}
+                </option>
+              ))}
+            </select>
+          </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Username</label>
             <input value={username} onChange={e=>setUsername(e.target.value)} placeholder="Enter username" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />

@@ -2,11 +2,12 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-import Employees from './pages/Employees'
 import CreateUser from './pages/CreateUser'
 import CreatePost from './pages/CreatePost'
 import CreateEmployee from './pages/CreateEmployee'
 import Report from './pages/Report'
+import UserLogin from './pages/UserLogin'
+import UserDashboard from './pages/UserDashboard'
 import Navbar from './components/Navbar'
 import api from './api'
 
@@ -55,10 +56,6 @@ function App() {
             element={<ProtectedRoute auth={auth} loading={loading}><Dashboard /></ProtectedRoute>}
           />
           <Route
-            path="/employees"
-            element={<ProtectedRoute auth={auth} loading={loading}><Employees /></ProtectedRoute>}
-          />
-          <Route
             path="/create-user"
             element={<ProtectedRoute auth={auth} loading={loading}><CreateUser /></ProtectedRoute>}
           />
@@ -74,6 +71,8 @@ function App() {
             path="/report"
             element={<ProtectedRoute auth={auth} loading={loading}><Report /></ProtectedRoute>}
           />
+          <Route path="/user-login" element={<UserLogin />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="*" element={<Navigate to={auth ? '/dashboard' : '/'} replace />} />
         </Routes>
       </main>
