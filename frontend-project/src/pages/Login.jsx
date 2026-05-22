@@ -2,7 +2,7 @@ import { useState } from 'react'
 import api from '../api'
 import { useNavigate } from 'react-router-dom'
 
-export default function Login(){
+export default function Login({ onLogin }){
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -11,7 +11,10 @@ export default function Login(){
     e.preventDefault()
     try{
       const res = await api.post('/admin/login', { name, password })
-      if(res.data) navigate('/dashboard')
+      if(res.data){
+        onLogin?.()
+        navigate('/dashboard')
+      }
     }catch(err){
       alert(err.response?.data?.error || 'Login failed')
     }
