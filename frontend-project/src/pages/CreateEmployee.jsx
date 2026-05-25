@@ -7,6 +7,7 @@ const defaultForm = {
 
 const statusOptions = ['Active', 'Inactive', 'On Leave', 'Terminated']
 const departmentOptions = ['Sales', 'Engineering', 'HR', 'Finance', 'Marketing', 'Operations', 'Support', 'Legal']
+const genderOptions = ['Male', 'Female']
 
 export default function CreateEmployee(){
   const [form, setForm] = useState(defaultForm)
@@ -44,7 +45,6 @@ export default function CreateEmployee(){
       setForm(defaultForm)
       setEditingEmployee(null)
       await loadEmployees()
-      setView('list')
     }catch(err){
       alert(err.response?.data?.error || 'Error')
     } finally {
@@ -108,7 +108,12 @@ export default function CreateEmployee(){
             <form onSubmit={handle} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input name="firstname" placeholder="First name" value={form.firstname} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <input name="lastname" placeholder="Last name" value={form.lastname} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-              <input name="gender" placeholder="Gender" value={form.gender} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+              <select name="gender" value={form.gender} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
+                <option value="">Select gender</option>
+                {genderOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
               <input name="dateofbirth" type="date" aria-label="Date of Birth" placeholder="Date of Birth" value={form.dateofbirth} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <input name="email" placeholder="Email" value={form.email} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <input name="phonenumber" placeholder="Phone" value={form.phonenumber} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
