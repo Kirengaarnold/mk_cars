@@ -5,6 +5,9 @@ const defaultForm = {
   firstname:'', lastname:'', gender:'', dateofbirth:'', email:'', phonenumber:'', position:'', HireDate:'', salary:'', status:'', department:'', address:''
 }
 
+const statusOptions = ['Active', 'Inactive', 'On Leave', 'Terminated']
+const departmentOptions = ['Sales', 'Engineering', 'HR', 'Finance', 'Marketing', 'Operations', 'Support', 'Legal']
+
 export default function CreateEmployee(){
   const [form, setForm] = useState(defaultForm)
   const [employees, setEmployees] = useState([])
@@ -112,8 +115,18 @@ export default function CreateEmployee(){
               <input name="position" placeholder="Position" value={form.position} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <input name="HireDate" type="date" aria-label="Hire Date" placeholder="Hire Date" value={form.HireDate} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <input name="salary" placeholder="Salary" value={form.salary} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-              <input name="status" placeholder="Status" value={form.status} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-              <input name="department" placeholder="Department" value={form.department} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+              <select name="status" value={form.status} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
+                <option value="">Select status</option>
+                {statusOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+              <select name="department" value={form.department} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
+                <option value="">Select department</option>
+                {departmentOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
               <input name="address" placeholder="Address" value={form.address} onChange={handleChange} className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
               <div className="sm:col-span-2 flex flex-col gap-3">
                 <button disabled={loading} className="w-full bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50">
@@ -129,7 +142,7 @@ export default function CreateEmployee(){
           </section>
 
           <section className="bg-slate-50 rounded-2xl border border-slate-200 p-6">
-            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-xl font-semibold text-gray-900">Employee List</h3>
                 <p className="text-sm text-gray-600">Your newest hires appear here instantly after saving.</p>
